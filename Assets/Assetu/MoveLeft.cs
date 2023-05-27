@@ -5,15 +5,21 @@ using UnityEngine;
 public class MoveLeft: MonoBehaviour
 {
     [SerializeField] float speed = 30; //Groundが動く速さ
-    // Start is called before the first frame update
+    PlayerConttrore playerControllerScript;
+    float leftBound = 15;
+  
     void Start()
     {
-      
+      playerControllerScript = GameObject.Find("Player").GetComponent<PlayerConttrore>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.left * Time.deltaTime * speed);
+        if(playerControllerScript.gameOver == false) { 
+         transform.Translate(Vector3.left * Time.deltaTime * speed);
+        }
+
+        if(transform.position.x < leftBound && gameObject.CompareTag("Obstacle")) {
+            Destroy(gameObject);}
     }
 }
